@@ -1,0 +1,197 @@
+﻿@model MVCIdealSpacePugaOrtizLopez.Models.Departamento
+
+@{
+    ViewData["Title"] = "Detalles del Departamento";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Sección de Imágenes y Detalles Principales -->
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                {
+                    <img src="@Model.ImagenUrl" class="card-img-top" alt="@Model.Titulo" style="height: 400px; object-fit: cover;">
+                }
+                else
+                {
+                    <img src="~/images/placeholder.jpg" class="card-img-top" alt="No imagen disponible" style="height: 400px; object-fit: cover;">
+                }
+                <div class="card-body">
+                    <h2 class="card-title mb-4">@Model.Titulo</h2>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <p class="mb-2">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                                <strong>Ubicación:</strong> @Model.Localizacion
+                            </p>
+                            <p class="mb-2">
+                                <i class="fas fa-city text-primary"></i>
+                                <strong>Ciudad:</strong> @Model.Ciudad
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2">
+                                <i class="fas fa-bed text-primary"></i>
+                                <strong>Habitaciones:</strong> @Model.Habitaciones
+                            </p>
+                            <p class="mb-2">
+                                <i class="fas fa-bath text-primary"></i>
+                                <strong>Baños:</strong> @Model.Baños
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h4>Descripción</h4>
+                        <p>@Model.Descripcion</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4>Lugares Cercanos</h4>
+                        <p>@Model.LugaresCercanos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Comentarios -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Comentarios</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Formulario de Comentarios -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-controller="Comentarios" asp-action="Create" method="post">
+                            <input type="hidden" name="DepartamentoId" value="@Model.DepartamentoId" />
+                            <div class="form-group mb-3">
+                                <textarea name="Contenido" class="form-control" rows="3"
+                                          placeholder="Escribe tu comentario aquí..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-paper-plane"></i> Publicar Comentario
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            Para dejar un comentario, por favor
+                            <a asp-controller="Usuario" asp-action="Login">inicia sesión</a>
+                        </div>
+                    }
+
+                    <!-- Lista de Comentarios -->
+                    <div class="mt-4">
+                        @if (Model.Comentarios != null && Model.Comentarios.Any())
+                        {
+                            foreach (var comentario in Model.Comentarios.OrderByDescending(c => c.FechaCreacion))
+                            {
+                                <div class="comentario-card mb-3 border-bottom pb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div>
+                                            <i class="fas fa-user-circle text-primary"></i>
+                                            <span class="fw-bold">@comentario.Usuario?.Nombre</span>
+                                        </div>
+                                        <small class="text-muted">
+                                            @comentario.FechaCreacion.ToString("dd/MM/yyyy HH:mm")
+                                        </small>
+                                    </div>
+                                    <p class="mb-0">@comentario.Contenido</p>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center text-muted mt-3">
+                                <i class="fas fa-comments fa-2x mb-2"></i>
+                                <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón de Volver -->
+    <div class="text-center mt-4">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver al Inicio
+        </a>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-img-top {
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-img-top {
+        transform: scale(1.02);
+    }
+
+    .comentario-card {
+        transition: background-color 0.2s ease;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .comentario-card:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn {
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        border-top-left-radius: 15px !important;
+        border-top-right-radius: 15px !important;
+    }
+
+    textarea {
+        resize: none;
+        border-radius: 8px;
+    }
+
+    textarea:focus {
+        box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
+    }
+
+    /* Animaciones */
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        // Script para auto-expandir el textarea
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.querySelector('textarea');
+            if (textarea) {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+            }
+        });
+    </script>
+}
