@@ -1,7 +1,10 @@
+using APIPugaOrtizLopez.Data;
+using APIPugaOrtizLopez.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddSqlServer<BddproyectoFinalContext>(builder.Configuration.GetConnectionString("DataConnection"));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,5 +24,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapUsuarioEndpoints();
 
 app.Run();
