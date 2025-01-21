@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCIdealSpacePugaOrtizLopez.Migrations
 {
     [DbContext(typeof(BDDProyectoFinal))]
-    [Migration("20250119212219_Fecha")]
-    partial class Fecha
+    [Migration("20250121003101_DB")]
+    partial class DB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,7 +92,12 @@ namespace MVCIdealSpacePugaOrtizLopez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("DepartamentoId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Departamento");
                 });
@@ -144,12 +149,25 @@ namespace MVCIdealSpacePugaOrtizLopez.Migrations
 
             modelBuilder.Entity("MVCIdealSpacePugaOrtizLopez.Models.Departamento", b =>
                 {
+                    b.HasOne("MVCIdealSpacePugaOrtizLopez.Models.Usuario", "Usuario")
+                        .WithMany("Departamentos")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("MVCIdealSpacePugaOrtizLopez.Models.Departamento", b =>
+                {
                     b.Navigation("Comentarios");
                 });
 
             modelBuilder.Entity("MVCIdealSpacePugaOrtizLopez.Models.Usuario", b =>
                 {
                     b.Navigation("Comentarios");
+
+                    b.Navigation("Departamentos");
                 });
 #pragma warning restore 612, 618
         }

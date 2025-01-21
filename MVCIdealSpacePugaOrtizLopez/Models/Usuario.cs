@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCIdealSpacePugaOrtizLopez.Models
@@ -9,6 +8,7 @@ namespace MVCIdealSpacePugaOrtizLopez.Models
         public Usuario()
         {
             Comentarios = new List<Comentario>();
+            Departamentos = new List<Departamento>();
         }
 
         [Key]
@@ -27,9 +27,11 @@ namespace MVCIdealSpacePugaOrtizLopez.Models
         [NotMapped]
         public string Password { get; set; }
 
-        [Column("PasswordHash")] // Especifica el nombre de la columna
-        public string? PasswordHash { get; set; } // Marca como nullable
+        [Column("PasswordHash")]
+        public string? PasswordHash { get; set; }
 
         public virtual ICollection<Comentario> Comentarios { get; set; }
+
+        public virtual ICollection<Departamento> Departamentos { get; set; }
     }
 }

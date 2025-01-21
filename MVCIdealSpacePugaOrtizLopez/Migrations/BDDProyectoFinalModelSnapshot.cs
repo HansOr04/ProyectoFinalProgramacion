@@ -89,7 +89,12 @@ namespace MVCIdealSpacePugaOrtizLopez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("DepartamentoId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Departamento");
                 });
@@ -141,12 +146,25 @@ namespace MVCIdealSpacePugaOrtizLopez.Migrations
 
             modelBuilder.Entity("MVCIdealSpacePugaOrtizLopez.Models.Departamento", b =>
                 {
+                    b.HasOne("MVCIdealSpacePugaOrtizLopez.Models.Usuario", "Usuario")
+                        .WithMany("Departamentos")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("MVCIdealSpacePugaOrtizLopez.Models.Departamento", b =>
+                {
                     b.Navigation("Comentarios");
                 });
 
             modelBuilder.Entity("MVCIdealSpacePugaOrtizLopez.Models.Usuario", b =>
                 {
                     b.Navigation("Comentarios");
+
+                    b.Navigation("Departamentos");
                 });
 #pragma warning restore 612, 618
         }

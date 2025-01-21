@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCIdealSpacePugaOrtizLopez.Models
@@ -14,13 +15,18 @@ namespace MVCIdealSpacePugaOrtizLopez.Models
 
         [ForeignKey("Usuario")]
         public int UsuarioId { get; set; }
+
+        // Agregar OnDelete(DeleteBehavior.NoAction)
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Usuario Usuario { get; set; }
 
         [ForeignKey("Departamento")]
         public int DepartamentoId { get; set; }
+
+        // Agregar OnDelete(DeleteBehavior.NoAction)
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public virtual Departamento Departamento { get; set; }
 
-        // Agregar fecha de creación
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
     }
 }
