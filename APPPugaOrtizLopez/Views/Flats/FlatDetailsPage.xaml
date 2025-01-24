@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels"
+            x:Class="APPPugaOrtizLopez.Views.Flats.FlatDetailsPage"
+            Title="Detalles del Departamento">
+
+    <ContentPage.BindingContext>
+        <viewmodels:FlatDetailsViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Image Source="{Binding Departamento.ImagenUrl}"
+                  HeightRequest="200"
+                  Aspect="AspectFill"/>
+
+            <Label Text="{Binding Departamento.Titulo}"
+                  FontSize="24"
+                  FontAttributes="Bold"/>
+
+            <Label Text="{Binding Departamento.Ciudad}"
+                  FontSize="18"/>
+
+            <Label Text="{Binding Departamento.Descripcion}"
+                  Margin="0,10"/>
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <VerticalStackLayout Grid.Column="0">
+                    <Label Text="Habitaciones"
+                          FontAttributes="Bold"/>
+                    <Label Text="{Binding Departamento.Habitaciones}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Baños"
+                          FontAttributes="Bold"/>
+                    <Label Text="{Binding Departamento.Baños}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="2">
+                    <Label Text="Localización"
+                          FontAttributes="Bold"/>
+                    <Label Text="{Binding Departamento.Localizacion}"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <Label Text="Lugares Cercanos"
+                  FontAttributes="Bold"
+                  Margin="0,10,0,0"/>
+            <Label Text="{Binding Departamento.LugaresCercanos}"/>
+
+            <BoxView HeightRequest="1" 
+                    Color="Gray" 
+                    Margin="0,10"/>
+
+            <Label Text="Comentarios"
+                  FontSize="20"
+                  FontAttributes="Bold"/>
+
+            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                <Entry Grid.Column="0"
+                      Placeholder="Añadir comentario"
+                      Text="{Binding Comentario}"/>
+                <Button Grid.Column="1"
+                       Text="Enviar"
+                       Command="{Binding AddComentarioCommand}"/>
+            </Grid>
+
+            <CollectionView ItemsSource="{Binding Departamento.Comentarios}">
+                <CollectionView.EmptyView>
+                    <Label Text="No hay comentarios"
+                          HorizontalOptions="Center"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Frame>
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Usuario.Nombre}"
+                                          FontAttributes="Bold"/>
+                                    <Label Text="{Binding Contenido}"/>
+                                    <Label Text="{Binding FechaCreacion, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                          FontSize="12"
+                                          TextColor="Gray"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                            IsVisible="{Binding IsLoading}"
+                            HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
