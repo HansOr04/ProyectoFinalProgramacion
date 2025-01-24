@@ -50,6 +50,8 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _errorMessage, value);
         }
 
+        public RegisterViewModel() { } // For XAML preview
+
         public RegisterViewModel(IUserService userService)
         {
             _userService = userService;
@@ -64,7 +66,6 @@ namespace APPPugaOrtizLopez.ViewModels
             {
                 IsLoading = true;
                 var response = await _userService.RegisterAsync(_nombre, _email, _password);
-
                 if (response != null)
                 {
                     await Shell.Current.GoToAsync("//MainPage");

@@ -32,6 +32,8 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _errorMessage, value);
         }
 
+        public AllFlatsViewModel() { } // For XAML preview
+
         public AllFlatsViewModel(IDepartamentoService departamentoService)
         {
             _departamentoService = departamentoService;
@@ -74,9 +76,9 @@ namespace APPPugaOrtizLopez.ViewModels
         {
             if (departamento == null) return;
             var parameters = new Dictionary<string, object>
-           {
-               { "Departamento", departamento }
-           };
+       {
+           { "Departamento", departamento }
+       };
             await Shell.Current.GoToAsync("FlatDetails", parameters);
         }
     }

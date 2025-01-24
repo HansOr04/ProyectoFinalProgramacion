@@ -1,64 +1,60 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels"
-            x:Class="APPPugaOrtizLopez.Views.Flats.CreateFlatPage"
-            Title="Nuevo Departamento">
-
-    <ContentPage.BindingContext>
-        <viewmodels:CreateFlatViewModel/>
-    </ContentPage.BindingContext>
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
+           x:Class="APPPugaOrtizLopez.Views.Flats.CreateFlatPage"
+           Title="Nuevo Departamento">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
             <Entry Placeholder="Título"
-                  Text="{Binding Titulo}"/>
+                 Text="{Binding Titulo}"/>
 
             <Editor Placeholder="Descripción"
-                   Text="{Binding Descripcion}"
-                   HeightRequest="100"/>
+                  Text="{Binding Descripcion}"
+                  HeightRequest="100"/>
 
             <Entry Placeholder="Ciudad"
-                  Text="{Binding Ciudad}"/>
+                 Text="{Binding Ciudad}"/>
 
             <Entry Placeholder="Localización"
-                  Text="{Binding Localizacion}"/>
+                 Text="{Binding Localizacion}"/>
 
             <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                 <Entry Grid.Column="0"
-                      Placeholder="Habitaciones"
-                      Text="{Binding Habitaciones}"
-                      Keyboard="Numeric"/>
+                     Placeholder="Habitaciones"
+                     Text="{Binding Habitaciones}"
+                     Keyboard="Numeric"/>
 
                 <Entry Grid.Column="1"
-                      Placeholder="Baños"
-                      Text="{Binding Baños}"
-                      Keyboard="Numeric"/>
+                     Placeholder="Baños"
+                     Text="{Binding Baños}"
+                     Keyboard="Numeric"/>
             </Grid>
 
             <Entry Placeholder="Lugares Cercanos"
-                  Text="{Binding LugaresCercanos}"/>
+                 Text="{Binding LugaresCercanos}"/>
 
             <Entry Placeholder="URL de Imagen"
-                  Text="{Binding ImagenUrl}"/>
+                 Text="{Binding ImagenUrl}"/>
 
             <Label Text="{Binding ErrorMessage}"
-                  TextColor="Red"
-                  IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+                 TextColor="Red"
+                 IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
 
             <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,20,0,0">
                 <Button Grid.Column="0"
-                       Text="Cancelar"
-                       Command="{Binding CancelCommand}"/>
+                      Text="Cancelar"
+                      Command="{Binding CancelCommand}"/>
 
                 <Button Grid.Column="1"
-                       Text="Guardar"
-                       Command="{Binding SaveDepartamentoCommand}"/>
+                      Text="Guardar"
+                      Command="{Binding SaveDepartamentoCommand}"/>
             </Grid>
 
             <ActivityIndicator IsRunning="{Binding IsLoading}"
-                            IsVisible="{Binding IsLoading}"
-                            HorizontalOptions="Center"/>
+                           IsVisible="{Binding IsLoading}"
+                           HorizontalOptions="Center"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

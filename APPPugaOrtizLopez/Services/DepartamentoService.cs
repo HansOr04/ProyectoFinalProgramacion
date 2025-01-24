@@ -16,7 +16,7 @@ namespace APPPugaOrtizLopez.Services
     public class DepartamentoService : IDepartamentoService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "http://10.0.2.2:5000/api/Departamento";
+        private const string BaseUrl = "https://localhost:7284/api/Departamento";
 
         public DepartamentoService()
         {

@@ -37,6 +37,8 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _errorMessage, value);
         }
 
+        public LoginViewModel() { } // For XAML preview
+
         public LoginViewModel(IUserService userService)
         {
             _userService = userService;

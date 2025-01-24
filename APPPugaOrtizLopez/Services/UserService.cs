@@ -14,7 +14,7 @@ namespace APPPugaOrtizLopez.Services
     public class UserService : IUserService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "http://10.0.2.2:5000/api/Usuario";
+        private const string BaseUrl = "https://localhost:7284/api/Usuario";
 
         public UserService()
         {

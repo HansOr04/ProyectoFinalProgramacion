@@ -79,6 +79,8 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _errorMessage, value);
         }
 
+        public CreateFlatViewModel() { } // For XAML preview
+
         public CreateFlatViewModel(IDepartamentoService departamentoService)
         {
             _departamentoService = departamentoService;

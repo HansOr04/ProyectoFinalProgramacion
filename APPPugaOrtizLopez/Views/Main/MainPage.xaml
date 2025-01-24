@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels"
-            x:Class="APPPugaOrtizLopez.Views.Main.MainPage"
-            Title="Bienvenido">
-
-    <ContentPage.BindingContext>
-        <viewmodels:MainViewModel />
-    </ContentPage.BindingContext>
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
+           x:Class="APPPugaOrtizLopez.Views.Main.MainPage"
+           Title="Bienvenido">
 
     <Grid RowDefinitions="*,Auto">
         <VerticalStackLayout Margin="20" 
-                           Spacing="20" 
-                           VerticalOptions="Center">
-
+                          Spacing="20" 
+                          VerticalOptions="Center">
             <Image Source="logo.png"
-                  HeightRequest="200"
-                  Aspect="AspectFit"/>
+                 HeightRequest="200"
+                 Aspect="AspectFit"/>
 
             <Label Text="Encuentra tu hogar ideal"
-                  FontSize="32"
-                  HorizontalOptions="Center"
-                  FontAttributes="Bold"/>
+                 FontSize="32"
+                 HorizontalOptions="Center"
+                 FontAttributes="Bold"/>
 
             <Label Text="Explora departamentos disponibles en tu zona"
-                  FontSize="18"
-                  HorizontalOptions="Center"/>
+                 FontSize="18"
+                 HorizontalOptions="Center"/>
         </VerticalStackLayout>
 
         <Button Grid.Row="1"
-               Text="Comenzar"
-               Command="{Binding StartAppCommand}"
-               IsEnabled="{Binding IsButtonEnabled}"
-               Margin="20,0,20,30"
-               HeightRequest="50"/>
+              Text="Comenzar"
+              Command="{Binding StartAppCommand}"
+              IsEnabled="{Binding IsButtonEnabled}"
+              Margin="20,0,20,30"
+              HeightRequest="50"/>
     </Grid>
 </ContentPage>

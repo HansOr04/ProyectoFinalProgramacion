@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels"
-            xmlns:models="clr-namespace:APPPugaOrtizLopez.Models"
-            x:Class="APPPugaOrtizLopez.Views.Flats.AllFlatsPage"
-            Title="Departamentos">
-
-    <ContentPage.BindingContext>
-        <viewmodels:AllFlatsViewModel/>
-    </ContentPage.BindingContext>
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
+           xmlns:models="clr-namespace:APPPugaOrtizLopez.Models.ModelsResponse;assembly=APPPugaOrtizLopez"
+           x:Class="APPPugaOrtizLopez.Views.Flats.AllFlatsPage"
+           Title="Departamentos">
 
     <Grid RowDefinitions="Auto,*">
         <Button Grid.Row="0" 
-               Text="Nuevo Departamento"
-               Command="{Binding NavigateToCreateDepartamentoCommand}"
-               Margin="20,10"/>
+              Text="Nuevo Departamento"
+              Command="{Binding NavigateToCreateDepartamentoCommand}"
+              Margin="20,10"/>
 
         <RefreshView Grid.Row="1" 
-                    Command="{Binding LoadDepartamentosCommand}"
-                    IsRefreshing="{Binding IsLoading}">
-
+                   Command="{Binding LoadDepartamentosCommand}"
+                   IsRefreshing="{Binding IsLoading}">
             <CollectionView ItemsSource="{Binding Departamentos}"
-                         SelectionMode="None">
+                        SelectionMode="None">
                 <CollectionView.EmptyView>
                     <VerticalStackLayout>
                         <Label Text="No hay departamentos disponibles"
-                              HorizontalOptions="Center"/>
+                             HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
 
@@ -34,31 +29,31 @@
                         <Frame Margin="10" Padding="10">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
-                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AllFlatsViewModel}}, Path=NavigateToDetailsCommand}"
-                                   CommandParameter="{Binding}"/>
+                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AllFlatsViewModel}}, Path=NavigateToDetailsCommand}"
+                                  CommandParameter="{Binding}"/>
                             </Frame.GestureRecognizers>
 
                             <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
                                 <Image Grid.RowSpan="3" 
-                                      Source="{Binding ImagenUrl}"
-                                      HeightRequest="100" 
-                                      WidthRequest="100"
-                                      Aspect="AspectFill"/>
+                                     Source="{Binding ImagenUrl}"
+                                     HeightRequest="100" 
+                                     WidthRequest="100"
+                                     Aspect="AspectFill"/>
 
                                 <Label Grid.Column="1" 
-                                      Text="{Binding Titulo}"
-                                      FontAttributes="Bold"/>
+                                     Text="{Binding Titulo}"
+                                     FontAttributes="Bold"/>
 
                                 <Label Grid.Row="1" 
-                                      Grid.Column="1" 
-                                      Text="{Binding Ciudad}"/>
+                                     Grid.Column="1" 
+                                     Text="{Binding Ciudad}"/>
 
                                 <StackLayout Grid.Row="2" 
-                                          Grid.Column="1" 
-                                          Orientation="Horizontal">
+                                         Grid.Column="1" 
+                                         Orientation="Horizontal">
                                     <Label Text="{Binding Habitaciones, StringFormat='{}Habitaciones: {0}'}"/>
                                     <Label Text="{Binding Baños, StringFormat='{}Baños: {0}'}"
-                                          Margin="10,0,0,0"/>
+                                         Margin="10,0,0,0"/>
                                 </StackLayout>
                             </Grid>
                         </Frame>
@@ -68,9 +63,9 @@
         </RefreshView>
 
         <ActivityIndicator Grid.Row="1" 
-                         IsRunning="{Binding IsLoading}"
-                         IsVisible="{Binding IsLoading}"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center"/>
+                        IsRunning="{Binding IsLoading}"
+                        IsVisible="{Binding IsLoading}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
     </Grid>
 </ContentPage>

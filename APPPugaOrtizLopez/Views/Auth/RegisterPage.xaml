@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels"
-            x:Class="APPPugaOrtizLopez.Views.Auth.RegisterPage"
-            Title="Registro">
-
-    <ContentPage.BindingContext>
-        <viewmodels:RegisterViewModel/>
-    </ContentPage.BindingContext>
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
+           x:Class="APPPugaOrtizLopez.Views.Auth.RegisterPage"
+           Title="Registro">
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">
             <Image Source="logo.png"
-                  HeightRequest="100" 
-                  Aspect="AspectFit"/>
+                 HeightRequest="100" 
+                 Aspect="AspectFit"/>
 
             <Entry Placeholder="Nombre"
-                  Text="{Binding Nombre}"/>
+                 Text="{Binding Nombre}"/>
 
             <Entry Placeholder="Email"
-                  Text="{Binding Email}"
-                  Keyboard="Email"/>
+                 Text="{Binding Email}"
+                 Keyboard="Email"/>
 
             <Entry Placeholder="Contraseña"
-                  Text="{Binding Password}"
-                  IsPassword="True"/>
+                 Text="{Binding Password}"
+                 IsPassword="True"/>
 
             <Entry Placeholder="Confirmar Contraseña"
-                  Text="{Binding ConfirmPassword}"
-                  IsPassword="True"/>
+                 Text="{Binding ConfirmPassword}"
+                 IsPassword="True"/>
 
             <Label Text="{Binding ErrorMessage}"
-                  TextColor="Red"
-                  IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+                 TextColor="Red"
+                 IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
 
             <Button Text="Registrarse"
-                   Command="{Binding RegisterCommand}"
-                   IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
-                   Margin="0,20,0,0"/>
+                  Command="{Binding RegisterCommand}"
+                  IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                  Margin="0,20,0,0"/>
 
             <ActivityIndicator IsRunning="{Binding IsLoading}"
-                            IsVisible="{Binding IsLoading}"
-                            HorizontalOptions="Center"/>
+                           IsVisible="{Binding IsLoading}"
+                           HorizontalOptions="Center"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

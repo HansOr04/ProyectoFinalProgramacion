@@ -39,15 +39,12 @@ namespace APPPugaOrtizLopez.ViewModels
             get => _errorMessage;
             set => SetProperty(ref _errorMessage, value);
         }
-
-        public FlatDetailsViewModel(
-            IDepartamentoService departamentoService,
-            IComentarioService comentarioService)
-        {
+        public FlatDetailsViewModel() { }
+        public FlatDetailsViewModel(IDepartamentoService departamentoService, IComentarioService comentarioService) {
             _departamentoService = departamentoService;
             _comentarioService = comentarioService;
         }
-
+    
         [RelayCommand]
         private async Task AddComentario()
         {
