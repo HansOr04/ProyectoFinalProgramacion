@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using APIPugaOrtizLopez.Data;
+﻿using APIPugaOrtizLopez.Data;
 using APIPugaOrtizLopez.Data.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.OpenApi;
+using Microsoft.EntityFrameworkCore;
 
 namespace APIPugaOrtizLopez.Controllers;
 

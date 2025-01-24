@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCIdealSpacePugaOrtizLopez.Models;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 namespace MVCIdealSpacePugaOrtizLopez.Controllers

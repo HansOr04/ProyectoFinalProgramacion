@@ -5,7 +5,9 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCIdealSpacePugaOrtizLopez", "MVCIdealSpacePugaOrtizLopez\MVCIdealSpacePugaOrtizLopez.csproj", "{1775E5FE-D844-4DB1-9874-71EEB0E723CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIPugaOrtizLopez", "APIPugaOrtizLopez\APIPugaOrtizLopez.csproj", "{1CBEE00A-E5F9-478B-B231-28B2E12FABC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIPugaOrtizLopez", "APIPugaOrtizLopez\APIPugaOrtizLopez.csproj", "{1CBEE00A-E5F9-478B-B231-28B2E12FABC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APPPugaOrtizLopez", "APPPugaOrtizLopez\APPPugaOrtizLopez.csproj", "{624E8B76-3D0A-4337-BA3B-BF1DB15ACD91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{1CBEE00A-E5F9-478B-B231-28B2E12FABC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CBEE00A-E5F9-478B-B231-28B2E12FABC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CBEE00A-E5F9-478B-B231-28B2E12FABC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{624E8B76-3D0A-4337-BA3B-BF1DB15ACD91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{624E8B76-3D0A-4337-BA3B-BF1DB15ACD91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{624E8B76-3D0A-4337-BA3B-BF1DB15ACD91}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{624E8B76-3D0A-4337-BA3B-BF1DB15ACD91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{624E8B76-3D0A-4337-BA3B-BF1DB15ACD91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{624E8B76-3D0A-4337-BA3B-BF1DB15ACD91}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

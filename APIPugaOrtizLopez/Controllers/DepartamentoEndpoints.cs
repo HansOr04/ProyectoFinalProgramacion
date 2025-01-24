@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using APIPugaOrtizLopez.Data;
+﻿using APIPugaOrtizLopez.Data;
 using APIPugaOrtizLopez.Data.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.OpenApi;
+using Microsoft.EntityFrameworkCore;
 
 namespace APIPugaOrtizLopez.Controllers;
 
@@ -250,7 +248,7 @@ public class ComentarioResponseDto
     public int ComentarioId { get; set; }
     public string Contenido { get; set; }
     public DateTime FechaCreacion { get; set; }
-    public DepartamentoInfoDto Departamento { get; set; } 
+    public DepartamentoInfoDto Departamento { get; set; }
     public UsuarioResponseDto Usuario { get; set; }
 }
 public class DepartamentoInfoDto

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using APIPugaOrtizLopez.Data;
+﻿using APIPugaOrtizLopez.Data;
 using APIPugaOrtizLopez.Data.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace APIPugaOrtizLopez.Controllers;
 

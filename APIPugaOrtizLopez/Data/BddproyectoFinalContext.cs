@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using APIPugaOrtizLopez.Data.Models;
+﻿using APIPugaOrtizLopez.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace APIPugaOrtizLopez.Data;
