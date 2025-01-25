@@ -4,6 +4,7 @@
            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
            xmlns:models="clr-namespace:APPPugaOrtizLopez.Models.ModelsResponse;assembly=APPPugaOrtizLopez"
            x:Class="APPPugaOrtizLopez.Views.Flats.AllFlatsPage"
+             
            Title="Departamentos">
 
     <Grid RowDefinitions="Auto,*">

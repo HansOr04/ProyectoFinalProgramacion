@@ -3,10 +3,11 @@ using APPPugaOrtizLopez.Services;
 using APPPugaOrtizLopez.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Maui.Controls;
+using System.Diagnostics;
 
 namespace APPPugaOrtizLopez.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject
+    public partial class LoginViewModel : BaseViewModel
     {
         private readonly IUserService _userService;
 
@@ -35,7 +36,11 @@ namespace APPPugaOrtizLopez.ViewModels
         public string ErrorMessage
         {
             get => _errorMessage;
-            set => SetProperty(ref _errorMessage, value);
+            set
+            {
+                SetProperty(ref _errorMessage, value);
+                IsError = !string.IsNullOrEmpty(value);
+            }
         }
 
         private bool _isError;
@@ -44,8 +49,6 @@ namespace APPPugaOrtizLopez.ViewModels
             get => _isError;
             set => SetProperty(ref _isError, value);
         }
-
-        public LoginViewModel() { }
 
         public LoginViewModel(IUserService userService)
         {
@@ -58,32 +61,27 @@ namespace APPPugaOrtizLopez.ViewModels
             if (string.IsNullOrWhiteSpace(_email) || string.IsNullOrWhiteSpace(_password))
             {
                 ErrorMessage = "Por favor complete todos los campos";
-                IsError = true;
                 return;
             }
 
             try
             {
                 IsLoading = true;
-                IsError = false;
+                ErrorMessage = string.Empty;
+                Debug.WriteLine($"Attempting login with: {_email}");
 
                 var response = await _userService.LoginAsync(_email, _password);
                 if (response != null)
                 {
                     Preferences.Default.Set("UserId", response.UsuarioId.ToString());
                     Preferences.Default.Set("UserName", response.Nombre);
-                    await Shell.Current.GoToAsync("//MainPage");
-                }
-                else
-                {
-                    ErrorMessage = "Usuario o contraseña incorrectos";
-                    IsError = true;
+                    await Shell.Current.GoToAsync("///AllFlats");
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = "Error al iniciar sesión: " + ex.Message;
-                IsError = true;
+                ErrorMessage = $"Error al iniciar sesión: {ex.Message}";
+                Debug.WriteLine($"Login Error: {ex}");
             }
             finally
             {

@@ -3,6 +3,7 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
            x:Class="APPPugaOrtizLopez.Views.Auth.RegisterPage"
+           x:Name="RegisterPageView"
            Title="Registro">
 
     <ScrollView>

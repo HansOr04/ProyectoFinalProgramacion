@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
 using APPPugaOrtizLopez.Models;
 using APPPugaOrtizLopez.Models.ModelsResponse;
-
+using System.Diagnostics;
 namespace APPPugaOrtizLopez.Services
 {
     public interface IUserService
@@ -11,6 +11,7 @@ namespace APPPugaOrtizLopez.Services
         Task<bool> LogoutAsync();
     }
 
+
     public class UserService : IUserService
     {
         private readonly HttpClient _httpClient;
@@ -18,7 +19,12 @@ namespace APPPugaOrtizLopez.Services
 
         public UserService()
         {
-            _httpClient = new HttpClient();
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+            _httpClient = new HttpClient(handler);
+            _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<LoginResponse> LoginAsync(string email, string password)
@@ -26,18 +32,23 @@ namespace APPPugaOrtizLopez.Services
             try
             {
                 var loginRequest = new LoginRequest { Email = email, Password = password };
+                Debug.WriteLine($"Request: {System.Text.Json.JsonSerializer.Serialize(loginRequest)}");
+
                 var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/login", loginRequest);
+                var content = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Response Status: {response.StatusCode}");
+                Debug.WriteLine($"Response Content: {content}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<LoginResponse>();
                 }
-
-                throw new Exception(await response.Content.ReadAsStringAsync());
+                throw new Exception(content);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Login failed: {ex.Message}");
+                Debug.WriteLine($"Exception: {ex}");
+                throw;
             }
         }
 
@@ -51,25 +62,25 @@ namespace APPPugaOrtizLopez.Services
                     Email = email,
                     Password = password
                 };
-
                 var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/register", registerRequest);
+                var content = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Register Response: {content}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<UserResponse>();
                 }
-
-                throw new Exception(await response.Content.ReadAsStringAsync());
+                throw new Exception(content);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Registration failed: {ex.Message}");
+                Debug.WriteLine($"Register Error: {ex}");
+                throw;
             }
         }
 
         public async Task<bool> LogoutAsync()
         {
-            // Clear local auth state
             return await Task.FromResult(true);
         }
     }
