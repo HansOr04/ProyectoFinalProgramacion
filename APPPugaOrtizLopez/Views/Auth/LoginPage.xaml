@@ -21,8 +21,8 @@
                  IsPassword="True"/>
 
             <Label Text="{Binding ErrorMessage}"
-                 TextColor="Red"
-                 IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+       TextColor="Red"
+       IsVisible="{Binding IsError}"/>
 
             <Button Text="Iniciar Sesión"
                   Command="{Binding LoginCommand}"

@@ -2,6 +2,7 @@
 using APPPugaOrtizLopez.Services;
 using APPPugaOrtizLopez.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Maui.Controls;
 
 namespace APPPugaOrtizLopez.ViewModels
 {
@@ -37,7 +38,14 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _errorMessage, value);
         }
 
-        public LoginViewModel() { } // For XAML preview
+        private bool _isError;
+        public bool IsError
+        {
+            get => _isError;
+            set => SetProperty(ref _isError, value);
+        }
+
+        public LoginViewModel() { }
 
         public LoginViewModel(IUserService userService)
         {
@@ -50,24 +58,32 @@ namespace APPPugaOrtizLopez.ViewModels
             if (string.IsNullOrWhiteSpace(_email) || string.IsNullOrWhiteSpace(_password))
             {
                 ErrorMessage = "Por favor complete todos los campos";
+                IsError = true;
                 return;
             }
 
             try
             {
                 IsLoading = true;
-                var response = await _userService.LoginAsync(_email, _password);
+                IsError = false;
 
+                var response = await _userService.LoginAsync(_email, _password);
                 if (response != null)
                 {
                     Preferences.Default.Set("UserId", response.UsuarioId.ToString());
                     Preferences.Default.Set("UserName", response.Nombre);
                     await Shell.Current.GoToAsync("//MainPage");
                 }
+                else
+                {
+                    ErrorMessage = "Usuario o contraseña incorrectos";
+                    IsError = true;
+                }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Error: {ex.Message}";
+                ErrorMessage = "Error al iniciar sesión: " + ex.Message;
+                IsError = true;
             }
             finally
             {
