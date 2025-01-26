@@ -6,12 +6,12 @@ using System.IO;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 
-
 namespace APPPugaOrtizLopez.ViewModels
 {
     public partial class CreateFlatViewModel : ObservableObject
     {
         private readonly IDepartamentoService _departamentoService;
+        private readonly IApiPublicService _apiPublicService;
         private readonly Cloudinary _cloudinary;
 
         private string _titulo;
@@ -98,18 +98,45 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _errorMessage, value);
         }
 
-        public CreateFlatViewModel() { }
+        private List<string> _ciudades;
+        public List<string> Ciudades
+        {
+            get => _ciudades;
+            set => SetProperty(ref _ciudades, value);
+        }
 
-        public CreateFlatViewModel(IDepartamentoService departamentoService)
+        private List<string> _calles;
+        public List<string> Calles
+        {
+            get => _calles;
+            set => SetProperty(ref _calles, value);
+        }
+
+        public CreateFlatViewModel(IDepartamentoService departamentoService, IApiPublicService apiPublicService)
         {
             _departamentoService = departamentoService;
+            _apiPublicService = apiPublicService;
 
             Account account = new Account(
-                "dzerzykxk",  
+                "dzerzykxk",
                 "425821271237374",
                 "g34Np2Ey0zNXJHkmciHirA6Ei3Q"
             );
             _cloudinary = new Cloudinary(account);
+            LoadCiudadesAsync();
+        }
+
+        private async Task LoadCiudadesAsync()
+        {
+            await _apiPublicService.GetCallesAsync();
+            Ciudades = _apiPublicService.GetCiudades();
+        }
+
+        [RelayCommand]
+        public async Task CiudadChanged(string selectedCiudad)
+        {
+            if (string.IsNullOrEmpty(selectedCiudad)) return;
+            Calles = await _apiPublicService.GetCallesByCiudadAsync(selectedCiudad);
         }
 
         private async Task<string> UploadToCloudinary(FileResult file)

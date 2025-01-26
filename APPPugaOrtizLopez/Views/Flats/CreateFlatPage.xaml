@@ -43,11 +43,13 @@
                        Padding="16,12"
                        CornerRadius="12"
                        HasShadow="False">
-                    <Entry Placeholder="Ciudad"
-                           Text="{Binding Ciudad}"
-                           BackgroundColor="Transparent"
-                           PlaceholderColor="#94A489"
-                           TextColor="#2C2C2C"/>
+                    <Picker Title="Seleccione Ciudad"
+                            ItemsSource="{Binding Ciudades}"
+                            SelectedItem="{Binding Ciudad}"
+                            BackgroundColor="Transparent"
+                            TextColor="#2C2C2C"
+                            TitleColor="#94A489"
+                            SelectedIndexChanged="OnCiudadSelected"/>
                 </Frame>
 
                 <Frame BorderColor="#E8E8E8"
@@ -55,11 +57,13 @@
                        Padding="16,12"
                        CornerRadius="12"
                        HasShadow="False">
-                    <Entry Placeholder="Localización"
-                           Text="{Binding Localizacion}"
-                           BackgroundColor="Transparent"
-                           PlaceholderColor="#94A489"
-                           TextColor="#2C2C2C"/>
+                    <Picker Title="Seleccione Calle"
+                            ItemsSource="{Binding Calles}"
+                            SelectedItem="{Binding Localizacion}"
+                            BackgroundColor="Transparent"
+                            TextColor="#2C2C2C"
+                            TitleColor="#94A489"
+                            IsEnabled="{Binding Ciudad, Converter={StaticResource StringNotEmptyConverter}}"/>
                 </Frame>
 
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="16">

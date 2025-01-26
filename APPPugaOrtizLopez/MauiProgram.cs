@@ -26,6 +26,7 @@ namespace APPPugaOrtizLopez
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<RegisterViewModel>();
+            builder.Services.AddSingleton<IApiPublicService, ApiPublicService>();
             builder.Services.AddSingleton<AllFlatsViewModel>();
             builder.Services.AddTransient<CreateFlatViewModel>();
             builder.Services.AddTransient<FlatDetailsViewModel>();
