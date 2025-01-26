@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels"
+             x:Class="APPPugaOrtizLopez.Views.Guardados.ListaCallesApiPage"
+             Title="Lista de Calles"
+             BackgroundColor="#FDFBF7">
+    <Grid>
+        <RefreshView Command="{Binding LoadCallesCommand}"
+                     IsRefreshing="{Binding IsLoading}">
+            <CollectionView ItemsSource="{Binding Calles}"
+                          Margin="20">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="No hay calles disponibles"
+                               HorizontalOptions="Center"
+                               TextColor="#666666"
+                               FontSize="16"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5" 
+                               Padding="15" 
+                               BorderColor="#E8E8E8"
+                               CornerRadius="12"
+                               BackgroundColor="White">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Ciudad}" 
+                                           FontSize="18" 
+                                           FontAttributes="Bold"
+                                           TextColor="#2C2C2C"/>
+                                    <Label Text="{Binding Calle}" 
+                                           FontSize="16"
+                                           TextColor="#666666"/>
+                                </VerticalStackLayout>
+                                <Button Grid.Column="1"
+                                        Text="Guardar"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ListaCallesApiViewModel}}, Path=GuardarCalleCommand}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="#94A489"
+                                        TextColor="White"
+                                        HeightRequest="40"
+                                        CornerRadius="20"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                          IsVisible="{Binding IsLoading}"
+                          Color="#94A489"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+
+        <Label Text="{Binding ErrorMessage}"
+               IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"
+               TextColor="#FF4444"
+               FontSize="14"
+               Margin="20"
+               HorizontalOptions="Center"
+               VerticalOptions="End"/>
+    </Grid>
+</ContentPage>

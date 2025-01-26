@@ -21,15 +21,18 @@ namespace APPPugaOrtizLopez
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IDepartamentoService, DepartamentoService>();
             builder.Services.AddSingleton<IComentarioService, ComentarioService>();
+            builder.Services.AddSingleton<IApiPublicService, ApiPublicService>();
+            builder.Services.AddSingleton<ICallesSqliteService, CallesSqliteService>();
 
             // ViewModels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<RegisterViewModel>();
-            builder.Services.AddSingleton<IApiPublicService, ApiPublicService>();
             builder.Services.AddSingleton<AllFlatsViewModel>();
             builder.Services.AddTransient<CreateFlatViewModel>();
             builder.Services.AddTransient<FlatDetailsViewModel>();
+            builder.Services.AddSingleton<ListaCallesGuardadasViewModel>();
+            builder.Services.AddTransient<ListaCallesApiViewModel>();
 
             // Views
             builder.Services.AddSingleton<Views.Main.MainPage>();
@@ -38,7 +41,8 @@ namespace APPPugaOrtizLopez
             builder.Services.AddSingleton<Views.Flats.AllFlatsPage>();
             builder.Services.AddTransient<Views.Flats.CreateFlatPage>();
             builder.Services.AddTransient<Views.Flats.FlatDetailsPage>();
-
+            builder.Services.AddSingleton<Views.Guardados.CallesGuardadasPage>();
+            builder.Services.AddTransient<Views.Guardados.ListaCallesApiPage>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

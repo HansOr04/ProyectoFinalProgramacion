@@ -1,78 +1,90 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-           xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
-           xmlns:models="clr-namespace:APPPugaOrtizLopez.Models.ModelsResponse;assembly=APPPugaOrtizLopez"
+           xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels"
+           xmlns:models="clr-namespace:APPPugaOrtizLopez.Models.ModelsResponse"
            x:Class="APPPugaOrtizLopez.Views.Flats.AllFlatsPage"
            BackgroundColor="#FDFBF7"
            Title="Departamentos">
     <Grid RowDefinitions="Auto,*">
-        <Button Grid.Row="0" 
-              Text="Nuevo Departamento"
-              Command="{Binding NavigateToCreateDepartamentoCommand}"
-              HeightRequest="50"
-              Margin="24,16"
-              CornerRadius="25"
-              BackgroundColor="#94A489"
-              TextColor="White"
-              FontAttributes="Bold"/>
+        <Grid Grid.Row="0" ColumnDefinitions="*,*">
+            <Button Grid.Column="0" 
+                 Text="Nuevo Departamento"
+                 Command="{Binding NavigateToCreateDepartamentoCommand}"
+                 HeightRequest="50"
+                 Margin="24,16,12,16"
+                 CornerRadius="25"
+                 BackgroundColor="#94A489"
+                 TextColor="White"
+                 FontAttributes="Bold"/>
+
+            <Button Grid.Column="1"
+                 Text="Calles Guardadas" 
+                 Command="{Binding NavigateToCallesGuardadasCommand}"
+                 HeightRequest="50"
+                 Margin="12,16,24,16"
+                 CornerRadius="25"
+                 BackgroundColor="#94A489"
+                 TextColor="White"
+                 FontAttributes="Bold"/>
+        </Grid>
 
         <RefreshView Grid.Row="1" 
-                   Command="{Binding LoadDepartamentosCommand}"
-                   IsRefreshing="{Binding IsLoading}">
+                  Command="{Binding LoadDepartamentosCommand}"
+                  IsRefreshing="{Binding IsLoading}">
             <CollectionView ItemsSource="{Binding Departamentos}"
-                        SelectionMode="None"
-                        Margin="12,0">
+                       SelectionMode="None"
+                       Margin="12,0">
                 <CollectionView.EmptyView>
                     <VerticalStackLayout VerticalOptions="Center">
                         <Label Text="No hay departamentos disponibles"
-                             HorizontalOptions="Center"
-                             TextColor="#666666"
-                             FontSize="16"/>
+                            HorizontalOptions="Center"
+                            TextColor="#666666"
+                            FontSize="16"/>
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:DepartamentoResponse">
                         <Frame Margin="8,8" 
-                               Padding="0"
-                               CornerRadius="16"
-                               HasShadow="True"
-                               BorderColor="Transparent"
-                               BackgroundColor="White">
+                              Padding="0"
+                              CornerRadius="16"
+                              HasShadow="True"
+                              BorderColor="Transparent"
+                              BackgroundColor="White">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
-                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AllFlatsViewModel}}, Path=NavigateToDetailsCommand}"
-                                  CommandParameter="{Binding}"/>
+                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AllFlatsViewModel}}, Path=NavigateToDetailsCommand}"
+                                 CommandParameter="{Binding}"/>
                             </Frame.GestureRecognizers>
                             <Grid RowDefinitions="160,Auto">
                                 <Image Grid.Row="0"
-                                     Source="{Binding ImagenUrl}"
-                                     Aspect="AspectFill"/>
+                                    Source="{Binding ImagenUrl}"
+                                    Aspect="AspectFill"/>
 
                                 <VerticalStackLayout Grid.Row="1" 
-                                                   Padding="16"
-                                                   Spacing="8">
+                                                  Padding="16"
+                                                  Spacing="8">
                                     <Label Text="{Binding Titulo}"
-                                         FontAttributes="Bold"
-                                         FontSize="18"
-                                         TextColor="#2C2C2C"/>
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        TextColor="#2C2C2C"/>
 
                                     <Label Text="{Binding Ciudad}"
-                                         TextColor="#666666"
-                                         FontSize="16"/>
+                                        TextColor="#666666"
+                                        FontSize="16"/>
 
                                     <Grid ColumnDefinitions="Auto,Auto" 
-                                          Margin="0,4,0,0">
+                                         Margin="0,4,0,0">
                                         <Label Grid.Column="0"
-                                             Text="{Binding Habitaciones, StringFormat='🛏️ {0} Habitaciones'}"
-                                             TextColor="#94A489"
-                                             FontAttributes="Bold"/>
+                                            Text="{Binding Habitaciones, StringFormat='🛏️ {0} Habitaciones'}"
+                                            TextColor="#94A489"
+                                            FontAttributes="Bold"/>
 
                                         <Label Grid.Column="1"
-                                             Text="{Binding Baños, StringFormat='🚿 {0} Baños'}"
-                                             TextColor="#94A489"
-                                             FontAttributes="Bold"
-                                             Margin="16,0,0,0"/>
+                                            Text="{Binding Baños, StringFormat='🚿 {0} Baños'}"
+                                            TextColor="#94A489"
+                                            FontAttributes="Bold"
+                                            Margin="16,0,0,0"/>
                                     </Grid>
                                 </VerticalStackLayout>
                             </Grid>
@@ -83,10 +95,10 @@
         </RefreshView>
 
         <ActivityIndicator Grid.Row="1" 
-                        IsRunning="{Binding IsLoading}"
-                        IsVisible="{Binding IsLoading}"
-                        Color="#94A489"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
+                       IsRunning="{Binding IsLoading}"
+                       IsVisible="{Binding IsLoading}"
+                       Color="#94A489"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
     </Grid>
 </ContentPage>

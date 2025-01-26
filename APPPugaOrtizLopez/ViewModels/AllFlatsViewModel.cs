@@ -4,6 +4,7 @@ using APPPugaOrtizLopez.Models;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using APPPugaOrtizLopez.Models.ModelsResponse;
+using System.Diagnostics;
 
 namespace APPPugaOrtizLopez.ViewModels
 {
@@ -32,7 +33,7 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _errorMessage, value);
         }
 
-        public AllFlatsViewModel() { } // For XAML preview
+        public AllFlatsViewModel() { }
 
         public AllFlatsViewModel(IDepartamentoService departamentoService)
         {
@@ -80,6 +81,19 @@ namespace APPPugaOrtizLopez.ViewModels
            { "Departamento", departamento }
        };
             await Shell.Current.GoToAsync("FlatDetails", parameters);
+        }
+
+        [RelayCommand]
+        private async Task NavigateToCallesGuardadas()
+        {
+            try
+            {
+                await Shell.Current.GoToAsync("//CallesGuardadas");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Navigation error: {ex.Message}");
+            }
         }
     }
 }

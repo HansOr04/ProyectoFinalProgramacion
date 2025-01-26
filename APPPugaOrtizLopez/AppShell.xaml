@@ -5,6 +5,7 @@
      xmlns:main="clr-namespace:APPPugaOrtizLopez.Views.Main;assembly=APPPugaOrtizLopez"
      xmlns:auth="clr-namespace:APPPugaOrtizLopez.Views.Auth;assembly=APPPugaOrtizLopez"
      xmlns:flats="clr-namespace:APPPugaOrtizLopez.Views.Flats;assembly=APPPugaOrtizLopez"
+     xmlns:guardados="clr-namespace:APPPugaOrtizLopez.Views.Guardados;assembly=APPPugaOrtizLopez"
      Shell.FlyoutBehavior="Disabled"
      Title="APPPugaOrtizLopez">
 
@@ -25,4 +26,8 @@
                 ContentTemplate="{DataTemplate flats:CreateFlatPage}"/>
     <ShellContent Route="FlatDetails"
                 ContentTemplate="{DataTemplate flats:FlatDetailsPage}"/>
+    <ShellContent Route="CallesGuardadas"
+               ContentTemplate="{DataTemplate guardados:CallesGuardadasPage}"/>
+    <ShellContent Route="ListaCallesApi"
+               ContentTemplate="{DataTemplate guardados:ListaCallesApiPage}"/>
 </Shell>
