@@ -4,38 +4,83 @@
         xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels"
         x:Class="APPPugaOrtizLopez.Views.Auth.LoginPage"
         x:Name="LoginPageView"
+        BackgroundColor="#FDFBF7"
         Title="Iniciar Sesión">
-    <Grid RowDefinitions="Auto,*" Margin="20">
-        <VerticalStackLayout Grid.Row="1" Spacing="20" VerticalOptions="Center">
+    <Grid RowDefinitions="Auto,*" Margin="24">
+        <VerticalStackLayout Grid.Row="1" Spacing="24" VerticalOptions="Center">
             <Image Source="logo.png"
-                HeightRequest="150"
+                HeightRequest="160"
                 Aspect="AspectFit" 
-                Margin="0,0,0,30"/>
-            <Frame Padding="15" HasShadow="True" CornerRadius="10">
+                Margin="0,0,0,32"/>
+            <Frame Padding="24" 
+                   HasShadow="True" 
+                   CornerRadius="16" 
+                   BorderColor="Transparent"
+                   BackgroundColor="White">
                 <VerticalStackLayout Spacing="20">
-                    <Entry Placeholder="Email"
-                        Text="{Binding Email, Mode=TwoWay}"
-                        Keyboard="Email"/>
-                    <Entry Placeholder="Contraseña"
-                        Text="{Binding Password, Mode=TwoWay}"
-                        IsPassword="True"/>
+                    <Frame BorderColor="#E8E8E8"
+                           BackgroundColor="#F8F9FA"
+                           Padding="16,12"
+                           CornerRadius="12"
+                           HasShadow="False">
+                        <Entry Placeholder="Email"
+                               Text="{Binding Email, Mode=TwoWay}"
+                               Keyboard="Email"
+                               BackgroundColor="Transparent"
+                               PlaceholderColor="#94A489"
+                               TextColor="#2C2C2C"/>
+                    </Frame>
+                    <Frame BorderColor="#E8E8E8"
+                           BackgroundColor="#F8F9FA"
+                           Padding="16,12"
+                           CornerRadius="12"
+                           HasShadow="False">
+                        <Entry Placeholder="Contraseña"
+                               Text="{Binding Password, Mode=TwoWay}"
+                               IsPassword="True"
+                               BackgroundColor="Transparent"
+                               PlaceholderColor="#94A489"
+                               TextColor="#2C2C2C"/>
+                    </Frame>
                     <Label Text="{Binding ErrorMessage}"
-                        TextColor="Red"
-                        FontSize="14" 
-                        IsVisible="{Binding IsError}"/>
+                           TextColor="#FF4444"
+                           FontSize="14" 
+                           Margin="8,0,0,0"
+                           IsVisible="{Binding IsError}"/>
                     <Button Text="Iniciar Sesión"
-                        Command="{Binding LoginCommand}"
-                        HeightRequest="50"/>
+                            Command="{Binding LoginCommand}"
+                            HeightRequest="56"
+                            CornerRadius="28"
+                            BackgroundColor="#94A489"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            Margin="0,8">
+                        <Button.Shadow>
+                            <Shadow Brush="#94A489"
+                                   Offset="0,4"
+                                   Radius="8"
+                                   Opacity="0.2"/>
+                        </Button.Shadow>
+                    </Button>
                     <ActivityIndicator IsRunning="{Binding IsLoading}"
-                                   IsVisible="{Binding IsLoading}"/>
+                                     IsVisible="{Binding IsLoading}"
+                                     Color="#94A489"/>
                 </VerticalStackLayout>
             </Frame>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
-                <Label Text="¿No tienes una cuenta?"/>
+            <StackLayout Orientation="Horizontal" 
+                        HorizontalOptions="Center" 
+                        Spacing="8"
+                        Margin="0,16,0,0">
+                <Label Text="¿No tienes una cuenta?"
+                       TextColor="#666666"
+                       VerticalOptions="Center"/>
                 <Button Text="Registrarse"
-                     Command="{Binding NavigateToRegisterCommand}"
-                     TextColor="Blue"
-                     BackgroundColor="Transparent"/>
+                        Command="{Binding NavigateToRegisterCommand}"
+                        TextColor="#94A489"
+                        FontAttributes="Bold"
+                        BackgroundColor="Transparent"
+                        Padding="4,0"/>
             </StackLayout>
         </VerticalStackLayout>
     </Grid>
