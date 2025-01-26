@@ -4,58 +4,77 @@
            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
            xmlns:models="clr-namespace:APPPugaOrtizLopez.Models.ModelsResponse;assembly=APPPugaOrtizLopez"
            x:Class="APPPugaOrtizLopez.Views.Flats.AllFlatsPage"
-             
+           BackgroundColor="#FDFBF7"
            Title="Departamentos">
-
     <Grid RowDefinitions="Auto,*">
         <Button Grid.Row="0" 
               Text="Nuevo Departamento"
               Command="{Binding NavigateToCreateDepartamentoCommand}"
-              Margin="20,10"/>
+              HeightRequest="50"
+              Margin="24,16"
+              CornerRadius="25"
+              BackgroundColor="#94A489"
+              TextColor="White"
+              FontAttributes="Bold"/>
 
         <RefreshView Grid.Row="1" 
                    Command="{Binding LoadDepartamentosCommand}"
                    IsRefreshing="{Binding IsLoading}">
             <CollectionView ItemsSource="{Binding Departamentos}"
-                        SelectionMode="None">
+                        SelectionMode="None"
+                        Margin="12,0">
                 <CollectionView.EmptyView>
-                    <VerticalStackLayout>
+                    <VerticalStackLayout VerticalOptions="Center">
                         <Label Text="No hay departamentos disponibles"
-                             HorizontalOptions="Center"/>
+                             HorizontalOptions="Center"
+                             TextColor="#666666"
+                             FontSize="16"/>
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
-
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:DepartamentoResponse">
-                        <Frame Margin="10" Padding="10">
+                        <Frame Margin="8,8" 
+                               Padding="0"
+                               CornerRadius="16"
+                               HasShadow="True"
+                               BorderColor="Transparent"
+                               BackgroundColor="White">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AllFlatsViewModel}}, Path=NavigateToDetailsCommand}"
                                   CommandParameter="{Binding}"/>
                             </Frame.GestureRecognizers>
-
-                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
-                                <Image Grid.RowSpan="3" 
+                            <Grid RowDefinitions="160,Auto">
+                                <Image Grid.Row="0"
                                      Source="{Binding ImagenUrl}"
-                                     HeightRequest="100" 
-                                     WidthRequest="100"
                                      Aspect="AspectFill"/>
 
-                                <Label Grid.Column="1" 
-                                     Text="{Binding Titulo}"
-                                     FontAttributes="Bold"/>
+                                <VerticalStackLayout Grid.Row="1" 
+                                                   Padding="16"
+                                                   Spacing="8">
+                                    <Label Text="{Binding Titulo}"
+                                         FontAttributes="Bold"
+                                         FontSize="18"
+                                         TextColor="#2C2C2C"/>
 
-                                <Label Grid.Row="1" 
-                                     Grid.Column="1" 
-                                     Text="{Binding Ciudad}"/>
+                                    <Label Text="{Binding Ciudad}"
+                                         TextColor="#666666"
+                                         FontSize="16"/>
 
-                                <StackLayout Grid.Row="2" 
-                                         Grid.Column="1" 
-                                         Orientation="Horizontal">
-                                    <Label Text="{Binding Habitaciones, StringFormat='{}Habitaciones: {0}'}"/>
-                                    <Label Text="{Binding Baños, StringFormat='{}Baños: {0}'}"
-                                         Margin="10,0,0,0"/>
-                                </StackLayout>
+                                    <Grid ColumnDefinitions="Auto,Auto" 
+                                          Margin="0,4,0,0">
+                                        <Label Grid.Column="0"
+                                             Text="{Binding Habitaciones, StringFormat='🛏️ {0} Habitaciones'}"
+                                             TextColor="#94A489"
+                                             FontAttributes="Bold"/>
+
+                                        <Label Grid.Column="1"
+                                             Text="{Binding Baños, StringFormat='🚿 {0} Baños'}"
+                                             TextColor="#94A489"
+                                             FontAttributes="Bold"
+                                             Margin="16,0,0,0"/>
+                                    </Grid>
+                                </VerticalStackLayout>
                             </Grid>
                         </Frame>
                     </DataTemplate>
@@ -66,6 +85,7 @@
         <ActivityIndicator Grid.Row="1" 
                         IsRunning="{Binding IsLoading}"
                         IsVisible="{Binding IsLoading}"
+                        Color="#94A489"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"/>
     </Grid>

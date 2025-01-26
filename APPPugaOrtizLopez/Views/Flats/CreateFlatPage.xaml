@@ -3,58 +3,166 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
            xmlns:viewmodels="clr-namespace:APPPugaOrtizLopez.ViewModels;assembly=APPPugaOrtizLopez"
            x:Class="APPPugaOrtizLopez.Views.Flats.CreateFlatPage"
+           BackgroundColor="#FDFBF7"
            Title="Nuevo Departamento">
-
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Entry Placeholder="Título"
-                 Text="{Binding Titulo}"/>
+        <Frame Margin="24,16" 
+               Padding="20"
+               CornerRadius="16"
+               HasShadow="True"
+               BorderColor="Transparent"
+               BackgroundColor="White">
+            <VerticalStackLayout Spacing="16">
+                <Frame BorderColor="#E8E8E8"
+                       BackgroundColor="#F8F9FA"
+                       Padding="16,12"
+                       CornerRadius="12"
+                       HasShadow="False">
+                    <Entry Placeholder="Título"
+                           Text="{Binding Titulo}"
+                           BackgroundColor="Transparent"
+                           PlaceholderColor="#94A489"
+                           TextColor="#2C2C2C"/>
+                </Frame>
 
-            <Editor Placeholder="Descripción"
-                  Text="{Binding Descripcion}"
-                  HeightRequest="100"/>
+                <Frame BorderColor="#E8E8E8"
+                       BackgroundColor="#F8F9FA"
+                       Padding="16,12"
+                       CornerRadius="12"
+                       HasShadow="False">
+                    <Editor Placeholder="Descripción"
+                           Text="{Binding Descripcion}"
+                           HeightRequest="120"
+                           BackgroundColor="Transparent"
+                           PlaceholderColor="#94A489"
+                           TextColor="#2C2C2C"/>
+                </Frame>
 
-            <Entry Placeholder="Ciudad"
-                 Text="{Binding Ciudad}"/>
+                <Frame BorderColor="#E8E8E8"
+                       BackgroundColor="#F8F9FA"
+                       Padding="16,12"
+                       CornerRadius="12"
+                       HasShadow="False">
+                    <Entry Placeholder="Ciudad"
+                           Text="{Binding Ciudad}"
+                           BackgroundColor="Transparent"
+                           PlaceholderColor="#94A489"
+                           TextColor="#2C2C2C"/>
+                </Frame>
 
-            <Entry Placeholder="Localización"
-                 Text="{Binding Localizacion}"/>
+                <Frame BorderColor="#E8E8E8"
+                       BackgroundColor="#F8F9FA"
+                       Padding="16,12"
+                       CornerRadius="12"
+                       HasShadow="False">
+                    <Entry Placeholder="Localización"
+                           Text="{Binding Localizacion}"
+                           BackgroundColor="Transparent"
+                           PlaceholderColor="#94A489"
+                           TextColor="#2C2C2C"/>
+                </Frame>
 
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                <Entry Grid.Column="0"
-                     Placeholder="Habitaciones"
-                     Text="{Binding Habitaciones}"
-                     Keyboard="Numeric"/>
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                    <Frame Grid.Column="0"
+                           BorderColor="#E8E8E8"
+                           BackgroundColor="#F8F9FA"
+                           Padding="16,12"
+                           CornerRadius="12"
+                           HasShadow="False">
+                        <Entry Placeholder="Habitaciones"
+                               Text="{Binding Habitaciones}"
+                               Keyboard="Numeric"
+                               BackgroundColor="Transparent"
+                               PlaceholderColor="#94A489"
+                               TextColor="#2C2C2C"/>
+                    </Frame>
 
-                <Entry Grid.Column="1"
-                     Placeholder="Baños"
-                     Text="{Binding Baños}"
-                     Keyboard="Numeric"/>
-            </Grid>
+                    <Frame Grid.Column="1"
+                           BorderColor="#E8E8E8"
+                           BackgroundColor="#F8F9FA"
+                           Padding="16,12"
+                           CornerRadius="12"
+                           HasShadow="False">
+                        <Entry Placeholder="Baños"
+                               Text="{Binding Baños}"
+                               Keyboard="Numeric"
+                               BackgroundColor="Transparent"
+                               PlaceholderColor="#94A489"
+                               TextColor="#2C2C2C"/>
+                    </Frame>
+                </Grid>
 
-            <Entry Placeholder="Lugares Cercanos"
-                 Text="{Binding LugaresCercanos}"/>
+                <Frame BorderColor="#E8E8E8"
+                       BackgroundColor="#F8F9FA"
+                       Padding="16,12"
+                       CornerRadius="12"
+                       HasShadow="False">
+                    <Entry Placeholder="Lugares Cercanos"
+                           Text="{Binding LugaresCercanos}"
+                           BackgroundColor="Transparent"
+                           PlaceholderColor="#94A489"
+                           TextColor="#2C2C2C"/>
+                </Frame>
 
-            <Entry Placeholder="URL de Imagen"
-                 Text="{Binding ImagenUrl}"/>
+                <Button Text="Seleccionar Imagen" 
+                        Command="{Binding PickImageCommand}"
+                        HeightRequest="50"
+                        CornerRadius="12"
+                        BackgroundColor="#94A489"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        Margin="0,8">
+                    <Button.Shadow>
+                        <Shadow Brush="#94A489"
+                               Offset="0,2"
+                               Radius="4"
+                               Opacity="0.2"/>
+                    </Button.Shadow>
+                </Button>
 
-            <Label Text="{Binding ErrorMessage}"
-                 TextColor="Red"
-                 IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+                <Image Source="{Binding SelectedImage}"
+                       HeightRequest="200"
+                       Aspect="AspectFit"
+                       IsVisible="{Binding SelectedImage, Converter={StaticResource IsNotNullConverter}}"/>
 
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,20,0,0">
-                <Button Grid.Column="0"
-                      Text="Cancelar"
-                      Command="{Binding CancelCommand}"/>
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="#FF4444"
+                       FontSize="14"
+                       Margin="8,0,0,0"
+                       IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
 
-                <Button Grid.Column="1"
-                      Text="Guardar"
-                      Command="{Binding SaveDepartamentoCommand}"/>
-            </Grid>
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Margin="0,8,0,0">
+                    <Button Grid.Column="0"
+                            Text="Cancelar"
+                            Command="{Binding CancelCommand}"
+                            HeightRequest="56"
+                            CornerRadius="28"
+                            BackgroundColor="#E8E8E8"
+                            TextColor="#666666"
+                            FontAttributes="Bold"/>
 
-            <ActivityIndicator IsRunning="{Binding IsLoading}"
-                           IsVisible="{Binding IsLoading}"
-                           HorizontalOptions="Center"/>
-        </VerticalStackLayout>
+                    <Button Grid.Column="1"
+                            Text="Guardar"
+                            Command="{Binding SaveDepartamentoCommand}"
+                            HeightRequest="56"
+                            CornerRadius="28"
+                            BackgroundColor="#94A489"
+                            TextColor="White"
+                            FontAttributes="Bold">
+                        <Button.Shadow>
+                            <Shadow Brush="#94A489"
+                                   Offset="0,4"
+                                   Radius="8"
+                                   Opacity="0.2"/>
+                        </Button.Shadow>
+                    </Button>
+                </Grid>
+
+                <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}"
+                                 Color="#94A489"
+                                 HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Frame>
     </ScrollView>
 </ContentPage>

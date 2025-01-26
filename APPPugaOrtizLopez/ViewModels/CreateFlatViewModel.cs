@@ -2,12 +2,17 @@
 using APPPugaOrtizLopez.Services;
 using APPPugaOrtizLopez.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.IO;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+
 
 namespace APPPugaOrtizLopez.ViewModels
 {
     public partial class CreateFlatViewModel : ObservableObject
     {
         private readonly IDepartamentoService _departamentoService;
+        private readonly Cloudinary _cloudinary;
 
         private string _titulo;
         public string Titulo
@@ -65,6 +70,20 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _imagenUrl, value);
         }
 
+        private FileResult _selectedFile;
+        public FileResult SelectedFile
+        {
+            get => _selectedFile;
+            set => SetProperty(ref _selectedFile, value);
+        }
+
+        private ImageSource _selectedImage;
+        public ImageSource SelectedImage
+        {
+            get => _selectedImage;
+            set => SetProperty(ref _selectedImage, value);
+        }
+
         private bool _isLoading;
         public bool IsLoading
         {
@@ -79,11 +98,31 @@ namespace APPPugaOrtizLopez.ViewModels
             set => SetProperty(ref _errorMessage, value);
         }
 
-        public CreateFlatViewModel() { } // For XAML preview
+        public CreateFlatViewModel() { }
 
         public CreateFlatViewModel(IDepartamentoService departamentoService)
         {
             _departamentoService = departamentoService;
+
+            Account account = new Account(
+                "dzerzykxk",  
+                "425821271237374",
+                "g34Np2Ey0zNXJHkmciHirA6Ei3Q"
+            );
+            _cloudinary = new Cloudinary(account);
+        }
+
+        private async Task<string> UploadToCloudinary(FileResult file)
+        {
+            using var stream = await file.OpenReadAsync();
+            var uploadParams = new ImageUploadParams
+            {
+                File = new FileDescription(file.FileName, stream),
+                Transformation = new Transformation().Width(1024).Height(1024).Crop("limit")
+            };
+
+            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+            return uploadResult.SecureUrl.ToString();
         }
 
         [RelayCommand]
@@ -95,6 +134,12 @@ namespace APPPugaOrtizLopez.ViewModels
             {
                 IsLoading = true;
                 var userId = Preferences.Default.Get("UserId", "0");
+
+                if (SelectedFile != null)
+                {
+                    ImagenUrl = await UploadToCloudinary(SelectedFile);
+                }
+
                 var response = await _departamentoService.CreateDepartamentoAsync(
                     _titulo,
                     _descripcion,
@@ -146,6 +191,37 @@ namespace APPPugaOrtizLopez.ViewModels
         private async Task Cancel()
         {
             await Shell.Current.GoToAsync("..");
+        }
+
+        [RelayCommand]
+        private async Task PickImage()
+        {
+            try
+            {
+                var result = await FilePicker.PickAsync(new PickOptions
+                {
+                    PickerTitle = "Seleccionar imagen",
+                    FileTypes = FilePickerFileType.Images
+                });
+
+                if (result != null)
+                {
+                    if (result.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) ||
+                        result.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase))
+                    {
+                        SelectedFile = result;
+                        SelectedImage = ImageSource.FromFile(result.FullPath);
+                    }
+                    else
+                    {
+                        ErrorMessage = "Por favor selecciona una imagen JPG o PNG";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Error al cargar la imagen: {ex.Message}";
+            }
         }
     }
 }
